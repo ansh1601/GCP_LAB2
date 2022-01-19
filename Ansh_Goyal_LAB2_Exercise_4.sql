@@ -3,7 +3,7 @@ AS
 with country_from as(
     SELECT country,ARRAY_AGG(STRUCT(
         operatingSystem ,browser,rank
-    )
+        )LIMIT 3
     ) as country_rank
    FROM( SELECT geoNetwork.country as country,device.operatingSystem as operatingSystem,
     device.browser as browser,
@@ -15,8 +15,12 @@ with country_from as(
     WHERE geoNetwork.country is NOT NULL 
     group by country,operatingSystem,browser
 )
-WHERE rank<4 and country NOT like '(%)'
+WHERE country NOT like '(%)'
 GROUP BY country
 )
 SELECT * FROM country_from
-order by country
+ORDER BY country
+
+
+
+
