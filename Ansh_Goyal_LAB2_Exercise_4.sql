@@ -7,7 +7,7 @@ with country_from as(
     device.browser as browser,
     ROW_NUMBER()  OVER (
         PARTITION By geoNetwork.country
-        ORDER BY (count(device.browser)*count(device.operatingSystem)) DESC
+        ORDER BY (count(device.browser)*count(device.operatingSystem))
     ) AS rank
     FROM `bigquery-public-data.google_analytics_sample.ga_sessions_20170801`
     WHERE device.isMobile = TRUE 
